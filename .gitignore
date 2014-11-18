@@ -13,3 +13,9 @@ hs_err_pid*
 
 # local gradle properties
 gradle.properties
+
+# build directory
+build/
+
+# gradle directory
+.gradle/

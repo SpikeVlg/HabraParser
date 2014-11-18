@@ -1,41 +1,51 @@
 
 package com.github.spikevlg;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.HttpHost;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+
 public class ContentProvider extends AbstractModule {
     @Override
     protected void configure() {
         bind(Grab.class).to(HttpClientGrab.class);
-        bind(HttpClientGrab.class).toProvider();
     }
 
     @Provides
     CloseableHttpClient provideCloseableHttpClient(){
         String proxyHost = System.getProperty("http.proxyHost");
         String stringProxyPort = System.getProperty("http.proxyPort");
-
+        
         if (proxyHost != null && stringProxyPort != null) {
             int proxyPort = new Integer(stringProxyPort);
-        } else {
-            return HttpClientBuilder.create().build();
-        }
 
-        
+            String proxyUser = System.getProperty("http.proxyUser");
+            String proxyPassword = System.getProperty("http.proxyPassword");
+            CredentialsProvider credsProvider = new BasicCredentialsProvider();
 
-        UsernamePasswordCredentials creds = new UsernamePasswordCredentials(
-                System.getProperty("http.proxyUser")
-                , System.getProperty("http.proxyPassword"));
+            if (proxyUser != null && proxyPassword != null){
+                UsernamePasswordCredentials creds = new UsernamePasswordCredentials(proxyUser, proxyPassword);
+                credsProvider.setCredentials( new AuthScope(proxyHost, proxyPort), creds );
+            }
+            else{
+                credsProvider.setCredentials( new AuthScope(proxyHost, proxyPort), null);
+            }
 
-
-
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials( new AuthScope(proxyHost, proxyPort), creds );
-
-        httpClient = HttpClientBuilder.create()
+            return  HttpClientBuilder.create()
                 .useSystemProperties()
                 .setProxy(new HttpHost(proxyHost, proxyPort))
                 .setDefaultCredentialsProvider(credsProvider)
                 .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy())
                 .build();
-        return httpClient;
+        } else {
+            return HttpClientBuilder.create().build();
+        }
     }
 }
