@@ -31,3 +31,8 @@ sourceSets {
 }
 
 mainClassName = "com.github.spikevlg.Application"
+
+
+run {
+    systemProperties System.getProperties()
+}

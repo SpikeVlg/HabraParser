@@ -39,11 +39,11 @@ public class ContentProvider extends AbstractModule {
             }
 
             return  HttpClientBuilder.create()
-                .useSystemProperties()
-                .setProxy(new HttpHost(proxyHost, proxyPort))
-                .setDefaultCredentialsProvider(credsProvider)
-                .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy())
-                .build();
+                    .useSystemProperties()
+                    .setProxy(new HttpHost(proxyHost, proxyPort))
+                    .setDefaultCredentialsProvider(credsProvider)
+                    .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy())
+                    .build();
         } else {
             return HttpClientBuilder.create().build();
         }
