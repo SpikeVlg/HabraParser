@@ -1,5 +1,5 @@
 
-package com.github.spikevlg;
+package com.github.spikevlg.habraparser;
 
 public class GrabException extends Exception {
     public GrabException(String msg){

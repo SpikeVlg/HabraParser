@@ -1,4 +1,4 @@
-package com.github.spikevlg;
+package com.github.spikevlg.habraparser;
 
 import com.google.inject.Inject;
 import org.htmlcleaner.CleanerProperties;

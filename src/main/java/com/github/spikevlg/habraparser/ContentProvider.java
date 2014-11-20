@@ -1,5 +1,5 @@
 
-package com.github.spikevlg;
+package com.github.spikevlg.habraparser;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

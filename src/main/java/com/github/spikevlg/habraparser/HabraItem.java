@@ -1,4 +1,4 @@
-package com.github.spikevlg;
+package com.github.spikevlg.habraparser;
 
 public class HabraItem {
     private int id;

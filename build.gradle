@@ -31,7 +31,7 @@ sourceSets {
     }
 }
 
-mainClassName = "com.github.spikevlg.Application"
+mainClassName = "com.github.spikevlg.habraparser.Application"
 
 
 run {
