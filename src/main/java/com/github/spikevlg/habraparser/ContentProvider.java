@@ -11,6 +11,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+import com.github.spikevlg.habraparser.htmlclient.Grab;
+import com.github.spikevlg.habraparser.htmlclient.HttpClientGrab;
+
 
 public class ContentProvider extends AbstractModule {
     @Override

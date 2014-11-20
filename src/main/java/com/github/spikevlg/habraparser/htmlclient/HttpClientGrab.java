@@ -1,4 +1,4 @@
-package com.github.spikevlg.habraparser;
+package com.github.spikevlg.habraparser.htmlclient;
 
 import java.io.IOException;
 import com.google.inject.Inject;

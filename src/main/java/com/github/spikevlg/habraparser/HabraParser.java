@@ -12,11 +12,17 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
+import com.github.spikevlg.habraparser.htmlclient.Grab;
+import com.github.spikevlg.habraparser.htmlparser.HtmlHabraParser;
+
 public class HabraParser {
     private Grab grab;
+    private HtmlHabraParser htmlParser;
+
     @Inject
-    public HabraParser(Grab grab){
+    public HabraParser(Grab grab, HtmlHabraParser htmlParser){
         this.grab = grab;
+        this.htmlParser = htmlParser;
     }
 
     public HabraItem parse(int articleID) throws Exception{
