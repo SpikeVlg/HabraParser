@@ -19,3 +19,11 @@ build/
 
 # gradle directory
 .gradle/
+gradle
+
+# idea files and directory
+src/main/main.iml
+.idea/
+gradlew
+gradlew.bat
+HabraParser.iml
