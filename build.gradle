@@ -32,8 +32,3 @@ sourceSets {
 }
 
 mainClassName = "com.github.spikevlg.habraparser.Application"
-
-
-run {
-    systemProperties System.getProperties()
-}

@@ -1,14 +1,19 @@
 package com.github.spikevlg.habraparser.htmlclient;
 
-import java.io.IOException;
 import com.google.inject.Inject;
-import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.http.HttpEntity;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
-class HttpClientGrab implements Grab {
+import java.io.IOException;
+
+public class HttpClientGrab implements Grab {
+    //@InjectLogger
+    Logger logger = LoggerFactory.getLogger(HttpClientGrab.class);
 
     CloseableHttpClient httpClient;
 
@@ -19,6 +24,7 @@ class HttpClientGrab implements Grab {
 
     @Override
     public String go(String url) throws GrabException{
+        logger.debug(url);
         HttpGet httpget = new HttpGet(url);
 
         try {
@@ -27,6 +33,7 @@ class HttpClientGrab implements Grab {
             String pageBody = EntityUtils.toString(entity);
             return pageBody;
         } catch (IOException ex){
+            logger.error("go: url = %s, ex = %s", url, ex.getMessage());
             throw new GrabException(ex);
         }
     }

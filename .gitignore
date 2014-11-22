@@ -27,3 +27,6 @@ src/main/main.iml
 gradlew
 gradlew.bat
 HabraParser.iml
+
+# logs folder
+logs/

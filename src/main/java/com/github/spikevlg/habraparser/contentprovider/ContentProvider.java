@@ -1,24 +1,29 @@
 
-package com.github.spikevlg.habraparser;
+package com.github.spikevlg.habraparser.contentprovider;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.HttpHost;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+import com.github.spikevlg.habraparser.habraparser.HabraParsable;
+import com.github.spikevlg.habraparser.habraparser.HtmlCleanerHabraParser;
 import com.github.spikevlg.habraparser.htmlclient.Grab;
 import com.github.spikevlg.habraparser.htmlclient.HttpClientGrab;
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.matcher.Matchers;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 
 
 public class ContentProvider extends AbstractModule {
     @Override
     protected void configure() {
+        bind(HabraParsable.class).to(HtmlCleanerHabraParser.class);
         bind(Grab.class).to(HttpClientGrab.class);
+        bindListener(Matchers.any(), new Slf4jTypeListener());
     }
 
     @Provides

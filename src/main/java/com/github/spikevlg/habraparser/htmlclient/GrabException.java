@@ -1,7 +1,9 @@
 
 package com.github.spikevlg.habraparser.htmlclient;
 
-public class GrabException extends Exception {
+import com.github.spikevlg.habraparser.HabraParserException;
+
+public class GrabException extends HabraParserException {
     public GrabException(String msg){
         super(msg);
     }
