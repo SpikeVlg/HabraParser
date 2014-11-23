@@ -16,6 +16,11 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.DomSerializer;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
 
 
 public class ContentProvider extends AbstractModule {
@@ -56,4 +61,15 @@ public class ContentProvider extends AbstractModule {
             return HttpClientBuilder.create().build();
         }
     }
+
+    @Provides
+    DomSerializer provideDomSerializer(){
+        return new DomSerializer(new CleanerProperties());
+    }
+
+    @Provides
+    XPath provideXPath(){
+        return XPathFactory.newInstance().newXPath();
+    }
+
 }
