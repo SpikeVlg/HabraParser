@@ -1,6 +1,6 @@
 package com.github.spikevlg.habraparser;
 
-public class HabraParserException extends Exception {
+public class HabraParserException extends RuntimeException {
     public HabraParserException(String msg){
         super(msg);
     }

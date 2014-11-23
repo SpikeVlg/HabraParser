@@ -16,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +50,11 @@ public class HtmlCleanerHabraParser implements HabraParsable {
             habraItem.setCountComments(parseInteger("//span[@id='comments_count']/text()", doc));
 
             String scoreString = xpath.evaluate("//span[@class='score']/text()", doc);
-            habraItem.setScore(new Double(scoreString.replace("+", "")));
+            try{
+                habraItem.setScore(new Double(scoreString.replace("+", "")));
+            } catch (NumberFormatException ex){
+                habraItem.setScore(0);
+            }
 
             habraItem.setListHubs(parseListString("//div[@class='hubs']/a/text()", doc));
             habraItem.setListTags(parseListString("//ul[@class='tags']/li/a/text()", doc));
@@ -58,6 +63,30 @@ public class HtmlCleanerHabraParser implements HabraParsable {
             return habraItem;
         }catch (ParserConfigurationException | XPathExpressionException ex){
             logger.error("parsePost: postId=%d ex=%s", postId, ex.getMessage());
+            throw new HabraParserException(ex);
+        }
+    }
+
+
+
+    @Override
+    public int getLastPostId(String mainPage) {
+        try {
+            TagNode tagNode = htmlCleaner.clean(mainPage);
+            Document doc = domSerializer.createDOM(tagNode);
+
+            List<Integer> listPostId = new LinkedList<>();
+            NodeList nodeList = (NodeList) xpath.evaluate("//div[@class='posts_list']/div/div[contains(@id, 'post_')]/@id"
+                    , doc, XPathConstants.NODESET);
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                String tmpPostString = nodeList.item(i).getNodeValue();
+                String postIdString = tmpPostString.split("_")[1];
+                Integer postId = new Integer(postIdString);
+                listPostId.add(postId);
+            }
+            return Collections.max(listPostId);
+        }catch (ParserConfigurationException | XPathExpressionException ex){
+            logger.error("getLastPostID: ex=%s", ex.getMessage());
             throw new HabraParserException(ex);
         }
     }

@@ -1,19 +1,20 @@
 package com.github.spikevlg.habraparser.htmlclient;
 
+import com.github.spikevlg.habraparser.contentprovider.InjectLogger;
 import com.google.inject.Inject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class HttpClientGrab implements Grab {
-    //@InjectLogger
-    Logger logger = LoggerFactory.getLogger(HttpClientGrab.class);
+    @InjectLogger
+    Logger logger;
 
     CloseableHttpClient httpClient;
 

@@ -18,8 +18,13 @@ public class HabraParser {
         this.htmlParser = htmlParser;
     }
 
-    public HabraItem parse(int postID) throws Exception{
+    public HabraItem parse(int postID){
         String page = grab.go("http://habrahabr.ru/post/" + postID);
         return htmlParser.parsePost(postID, page);
+    }
+
+    public int getLastPostId(){
+        String page = grab.go("http://habrahabr.ru/");
+        return htmlParser.getLastPostId(page);
     }
 }
