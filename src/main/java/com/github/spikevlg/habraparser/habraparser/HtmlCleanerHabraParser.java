@@ -67,8 +67,6 @@ public class HtmlCleanerHabraParser implements HabraParsable {
         }
     }
 
-
-
     @Override
     public int getLastPostId(String mainPage) {
         try {
