@@ -20,6 +20,21 @@ public class HabraItem {
                 , listTags);
     }
 
+    @Override
+    public int hashCode() {
+        return id + title.hashCode() + author.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof HabraItem){
+            HabraItem other = (HabraItem)obj;
+            return id == other.id
+                    && title == other.title
+                    && author == other.author;
+        } else return false;
+    }
+
     public List<String> getListTags() {
         return listTags;
     }

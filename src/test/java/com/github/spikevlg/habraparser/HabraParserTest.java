@@ -12,6 +12,10 @@ public class HabraParserTest {
     private HabraParsable htmlParser;
     private HabraParser habraParser ;
 
+    private static final String MAIN_PAGE_BODY = "html habrahabr main page body";
+    private static final int EXPECTED_LAST_POST_ID = 12345;
+
+
     @Before
     public void beforeTest(){
         grab = mock(Grab.class);
@@ -21,11 +25,19 @@ public class HabraParserTest {
 
     @Test
     public void getLastPageId(){
-        String MAIN_PAGE_BODY = "html habrahabr main page body";
-        int EXPECTED_LAST_POST_ID = 12345;
         when(grab.go("http://habrahabr.ru/")).thenReturn(MAIN_PAGE_BODY);
         when(htmlParser.getLastPostId(MAIN_PAGE_BODY)).thenReturn(EXPECTED_LAST_POST_ID);
-        assertEquals(habraParser.getLastPostId(), EXPECTED_LAST_POST_ID);
+        assertEquals(EXPECTED_LAST_POST_ID, habraParser.getLastPostId());
     }
 
+    @Test
+    public void parsePost() {
+        HabraItem item = new HabraItem();
+        item.setId(EXPECTED_LAST_POST_ID);
+        item.setTitle("some title");
+
+        when(grab.go("http://habrahabr.ru/post/" + EXPECTED_LAST_POST_ID)).thenReturn(MAIN_PAGE_BODY);
+        when(htmlParser.parsePost(EXPECTED_LAST_POST_ID, MAIN_PAGE_BODY)).thenReturn(item);
+        assertEquals(item, habraParser.parse(EXPECTED_LAST_POST_ID));
+    }
 }
