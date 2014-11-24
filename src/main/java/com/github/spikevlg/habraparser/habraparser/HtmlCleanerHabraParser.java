@@ -82,6 +82,9 @@ public class HtmlCleanerHabraParser implements HabraParsable {
                 Integer postId = new Integer(postIdString);
                 listPostId.add(postId);
             }
+            if (listPostId.size() == 0) {
+                throw new HabraParserException("Not found element posts list on page!");
+            }
             return Collections.max(listPostId);
         }catch (ParserConfigurationException | XPathExpressionException ex){
             logger.error("getLastPostID: ex=%s", ex.getMessage());

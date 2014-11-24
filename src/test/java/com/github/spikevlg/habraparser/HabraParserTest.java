@@ -17,7 +17,7 @@ public class HabraParserTest {
 
 
     @Before
-    public void beforeTest(){
+    public void setUp(){
         grab = mock(Grab.class);
         htmlParser = mock(HabraParsable.class);
         habraParser = new HabraParser(grab, htmlParser);
