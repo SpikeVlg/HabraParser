@@ -1,9 +1,9 @@
 
-package com.github.spikevlg.habraparser.habraparser;
+package com.github.spikevlg.habraparser.htmlparser;
 
 import com.github.spikevlg.habraparser.HabraItem;
 
-public interface HabraParsable {
+public interface HtmlHabraParser {
     HabraItem parsePost(int postId, String postPage);
     int getLastPostId(String mainPage);
 }

@@ -1,6 +1,6 @@
 package com.github.spikevlg.habraparser;
 
-import com.github.spikevlg.habraparser.habraparser.HabraParsable;
+import com.github.spikevlg.habraparser.htmlparser.HtmlHabraParser;
 import com.github.spikevlg.habraparser.htmlclient.Grab;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class HabraParserTest {
     private Grab grab;
-    private HabraParsable htmlParser;
+    private HtmlHabraParser htmlParser;
     private HabraParser habraParser ;
 
     private static final String MAIN_PAGE_BODY = "html habrahabr main page body";
@@ -19,7 +19,7 @@ public class HabraParserTest {
     @Before
     public void setUp(){
         grab = mock(Grab.class);
-        htmlParser = mock(HabraParsable.class);
+        htmlParser = mock(HtmlHabraParser.class);
         habraParser = new HabraParser(grab, htmlParser);
     }
 
