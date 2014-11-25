@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class HttpClientGrab implements Grab {
-    @InjectLogger
-    Logger logger;
+    Logger logger = LoggerFactory.getLogger(HttpClientGrab.class);;
 
     CloseableHttpClient httpClient;
 
