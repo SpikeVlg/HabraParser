@@ -1,8 +1,8 @@
 
 package com.github.spikevlg.habraparser.contentprovider;
 
-import com.github.spikevlg.habraparser.habraparser.HabraParsable;
-import com.github.spikevlg.habraparser.habraparser.HtmlCleanerHabraParser;
+import com.github.spikevlg.habraparser.htmlparser.HtmlHabraParser;
+import com.github.spikevlg.habraparser.htmlparser.HtmlCleanerHabraParser;
 import com.github.spikevlg.habraparser.htmlclient.Grab;
 import com.github.spikevlg.habraparser.htmlclient.HttpClientGrab;
 import com.google.inject.AbstractModule;
@@ -26,7 +26,7 @@ import javax.xml.xpath.XPathFactory;
 public class ContentProvider extends AbstractModule {
     @Override
     protected void configure() {
-        bind(HabraParsable.class).to(HtmlCleanerHabraParser.class);
+        bind(HtmlHabraParser.class).to(HtmlCleanerHabraParser.class);
         bind(Grab.class).to(HttpClientGrab.class);
         bindListener(Matchers.any(), new Slf4jTypeListener());
     }

@@ -1,5 +1,5 @@
 
-package com.github.spikevlg.habraparser.habraparser;
+package com.github.spikevlg.habraparser.htmlparser;
 
 import com.github.spikevlg.habraparser.HabraItem;
 import com.github.spikevlg.habraparser.HabraParserException;
@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HtmlCleanerHabraParser implements HabraParsable {
+public class HtmlCleanerHabraParser implements HtmlHabraParser {
     @InjectLogger
     private Logger logger;
     private HtmlCleaner htmlCleaner;

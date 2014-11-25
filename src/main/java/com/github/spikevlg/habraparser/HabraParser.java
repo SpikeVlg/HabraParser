@@ -1,7 +1,7 @@
 package com.github.spikevlg.habraparser;
 
 import com.github.spikevlg.habraparser.contentprovider.InjectLogger;
-import com.github.spikevlg.habraparser.habraparser.HabraParsable;
+import com.github.spikevlg.habraparser.htmlparser.HtmlHabraParser;
 import com.github.spikevlg.habraparser.htmlclient.Grab;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
@@ -10,10 +10,10 @@ public class HabraParser {
     @InjectLogger
     private Logger logger;
     private Grab grab;
-    private HabraParsable htmlParser;
+    private HtmlHabraParser htmlParser;
 
     @Inject
-    public HabraParser(Grab grab, HabraParsable htmlParser){
+    public HabraParser(Grab grab, HtmlHabraParser htmlParser){
         this.grab = grab;
         this.htmlParser = htmlParser;
     }

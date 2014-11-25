@@ -1,4 +1,4 @@
-package com.github.spikevlg.habraparser.habraparser;
+package com.github.spikevlg.habraparser.htmlparser;
 
 
 import com.github.spikevlg.habraparser.HabraItem;
