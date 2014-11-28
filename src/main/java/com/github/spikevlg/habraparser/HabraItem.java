@@ -1,6 +1,8 @@
 package com.github.spikevlg.habraparser;
 
+import com.google.common.base.MoreObjects;
 import java.util.List;
+import java.util.Objects;
 
 public class HabraItem {
     private int id;
@@ -15,23 +17,32 @@ public class HabraItem {
 
     @Override
     public String toString() {
-        return String.format("id=%d title='%s' author='%s' isTranslate=%b pageViews=%d countStars=%d score=%.2f%n"
-                + "listHubs=%s%nlistTags=%s", id, title, author, isTranslate, pageViews, countStars, score, listHubs
-                , listTags);
+        return MoreObjects.toStringHelper(this)
+                .omitNullValues()
+                .add("id", id)
+                .add("title", title)
+                .add("author", author)
+                .add("isTranslate", isTranslate)
+                .add("pageViews", pageViews)
+                .add("countStars", countStars)
+                .add("score", score)
+                .add("\nlistHubs", listHubs)
+                .add("\nlistTags", listTags)
+                .toString();
     }
 
     @Override
     public int hashCode() {
-        return id + title.hashCode() + author.hashCode();
+        return Objects.hash(id, title, author.hashCode());
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof HabraItem){
             HabraItem other = (HabraItem)obj;
-            return id == other.id
-                    && title == other.title
-                    && author == other.author;
+            return Objects.equals(id, other.id)
+                    && Objects.equals(title, other.title)
+                    && Objects.equals(author, other.author);
         } else return false;
     }
 
