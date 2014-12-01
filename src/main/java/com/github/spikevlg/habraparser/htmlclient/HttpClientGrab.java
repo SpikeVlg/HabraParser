@@ -1,6 +1,5 @@
 package com.github.spikevlg.habraparser.htmlclient;
 
-import com.github.spikevlg.habraparser.contentprovider.InjectLogger;
 import com.google.inject.Inject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,16 +11,35 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Implementation Grab interface.
+ */
 public class HttpClientGrab implements Grab {
+    /**
+     * A logger object.
+     */
     Logger logger = LoggerFactory.getLogger(HttpClientGrab.class);;
 
+    /**
+     * A CloseableHttpClient object from apache.http.client.
+     */
     CloseableHttpClient httpClient;
 
+    /**
+     * Creates the {@link HttpClientGrab}
+     * @param httpClient - an object apache.http.client
+     */
     @Inject
     public HttpClientGrab(CloseableHttpClient httpClient){
         this.httpClient = httpClient;
     }
 
+    /**
+     * Returns page body by given url.
+     * @param url for request
+     * @return the page body
+     * @throws GrabException may throw exception if can't get page
+     */
     @Override
     public String go(String url) throws GrabException{
         logger.debug(url);
