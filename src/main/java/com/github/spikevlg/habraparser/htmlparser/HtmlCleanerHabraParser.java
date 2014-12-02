@@ -20,9 +20,16 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class parses html pages from habrahabr sites using html cleaner library.
+ */
 public class HtmlCleanerHabraParser implements HtmlHabraParser {
+    /**
+     * A logger object.
+     */
     @InjectLogger
     private Logger logger;
+
     private HtmlCleaner htmlCleaner;
     private DomSerializer domSerializer;
     private XPath xpath;
@@ -34,6 +41,12 @@ public class HtmlCleanerHabraParser implements HtmlHabraParser {
         this.xpath = xpath;
     }
 
+    /**
+     * Parses main indicators from post page.
+     * @param postId - post id
+     * @param postPage - page body of article
+     * @return parsed structure
+     */
     @Override
     public HabraItem parsePost(int postId, String postPage) throws HabraParserException {
         try {
@@ -67,6 +80,11 @@ public class HtmlCleanerHabraParser implements HtmlHabraParser {
         }
     }
 
+    /**
+     * Returnes last post ID/
+     * @param mainPage - the body of main page with list articles.
+     * @return last post ID
+     */
     @Override
     public int getLastPostId(String mainPage) {
         try {
@@ -92,6 +110,13 @@ public class HtmlCleanerHabraParser implements HtmlHabraParser {
         }
     }
 
+    /**
+     * Parses list of string by XPath
+     * @param xPath - XPath query
+     * @param doc - parse source
+     * @return parsed list of string
+     * @throws XPathExpressionException
+     */
     private List<String> parseListString(String xPath, Document doc) throws XPathExpressionException {
         List<String> listString = new LinkedList<>();
         NodeList nodeList = (NodeList) xpath.evaluate(xPath, doc, XPathConstants.NODESET);
@@ -101,14 +126,35 @@ public class HtmlCleanerHabraParser implements HtmlHabraParser {
         return listString;
     }
 
+    /**
+     * Parses double value by xpath
+     * @param xPath - XPath query
+     * @param doc - parse source
+     * @return parsed double value
+     * @throws XPathExpressionException
+     */
     private Double parseDouble(String xPath, Document doc) throws XPathExpressionException{
         return (Double) xpath.evaluate(xPath, doc, XPathConstants.NUMBER);
     }
 
+    /**
+     * Parses integer value by xpath
+     * @param xPath - XPath query
+     * @param doc - parse source
+     * @return parsed integer value
+     * @throws XPathExpressionException
+     */
     private Integer parseInteger(String xPath, Document doc) throws XPathExpressionException {
         return parseDouble(xPath, doc).intValue();
     }
 
+    /**
+     * Parses boolean value by xpath
+     * @param xPath - XPath query
+     * @param doc - parse source
+     * @return parsed boolean value
+     * @throws XPathExpressionException
+     */
     private Boolean parseBoolean(String xPath, Document doc) throws XPathExpressionException {
         return (Boolean) xpath.evaluate(xPath, doc, XPathConstants.BOOLEAN);
     }

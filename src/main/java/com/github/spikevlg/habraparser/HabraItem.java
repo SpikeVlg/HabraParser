@@ -1,18 +1,49 @@
 package com.github.spikevlg.habraparser;
 
 import com.google.common.base.MoreObjects;
+
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for represent item of article from habrahabr.
+ */
 public class HabraItem {
+    /**
+     * Post id
+     */
     private int id;
+    /**
+     * Post title
+     */
     private String title;
+    /**
+     * Post author
+     */
     private String author;
+    /**
+     * Count of start for post
+     */
     private int countStars;
+    /**
+     * Count of page views for post
+     */
     private int pageViews;
+    /**
+     * Is translated article
+     */
     private boolean isTranslate;
+    /**
+     * Raiting of post
+     */
     private double score;
+    /**
+     * List of hubs
+     */
     private List<String> listHubs;
+    /**
+     * List of tags
+     */
     private List<String> listTags;
 
     @Override

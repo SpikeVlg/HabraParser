@@ -7,6 +7,9 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
+/**
+ * Tests for class HabraParser.
+ */
 public class HabraParserTest {
     private Grab grab;
     private HtmlHabraParser htmlParser;
@@ -16,6 +19,9 @@ public class HabraParserTest {
     private static final int EXPECTED_LAST_POST_ID = 12345;
 
 
+    /**
+     * Creates mock objects.
+     */
     @Before
     public void setUp(){
         grab = mock(Grab.class);
@@ -23,6 +29,9 @@ public class HabraParserTest {
         habraParser = new HabraParser(grab, htmlParser);
     }
 
+    /**
+     * Tests getLastPageId method.
+     */
     @Test
     public void getLastPageId(){
         when(grab.go("http://habrahabr.ru/")).thenReturn(MAIN_PAGE_BODY);
@@ -30,6 +39,9 @@ public class HabraParserTest {
         assertEquals(EXPECTED_LAST_POST_ID, habraParser.getLastPostId());
     }
 
+    /**
+     * Tests parsePost method.
+     */
     @Test
     public void parsePost() {
         HabraItem item = new HabraItem();

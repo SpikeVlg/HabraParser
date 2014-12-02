@@ -18,10 +18,17 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+/**
+ * Class for test HttpClientGrab.
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EntityUtils.class, HttpClientGrab.class})
 public class HttpClientGrabTest {
 
+    /**
+     * Success test for download some page.
+     * @throws Exception
+     */
     @Test
     public void goTestSuccess() throws Exception {
         final String URL = "http://habrahabr.ru";
@@ -46,6 +53,10 @@ public class HttpClientGrabTest {
         assertEquals(PAGE_BODY, httpClientGrab.go(URL));
     }
 
+    /**
+     * Test check exception behavior caused by wrong url.
+     * @throws Exception
+     */
     @Test(expected = IllegalArgumentException.class)
     public void goTestWrongUrl() throws Exception {
         CloseableHttpClient httpClient = mock(CloseableHttpClient.class);

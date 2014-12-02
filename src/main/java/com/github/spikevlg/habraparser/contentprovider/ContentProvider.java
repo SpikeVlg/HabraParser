@@ -22,8 +22,13 @@ import org.htmlcleaner.DomSerializer;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-
+/**
+ * Class configure guice dependency injection.
+ */
 public class ContentProvider extends AbstractModule {
+    /**
+     * Configure bindings.
+     */
     @Override
     protected void configure() {
         bind(HtmlHabraParser.class).to(HtmlCleanerHabraParser.class);
@@ -31,6 +36,16 @@ public class ContentProvider extends AbstractModule {
         bindListener(Matchers.any(), new Slf4jTypeListener());
     }
 
+    /**
+     * Creates special http client object.
+     * Can be configure with proxy by system property mechanism.
+     * Available next system propeties:
+     * http.proxyHost
+     * http.proxyPost
+     * http.proxyUser
+     * http.proxyPassword
+     * @return object of CloseableHttpClient class.
+     */
     @Provides
     CloseableHttpClient provideCloseableHttpClient(){
         String proxyHost = System.getProperty("http.proxyHost");
@@ -62,11 +77,19 @@ public class ContentProvider extends AbstractModule {
         }
     }
 
+    /**
+     * Creates dom serializer object.
+     * @return object of DomSerializer class.
+     */
     @Provides
     DomSerializer provideDomSerializer(){
         return new DomSerializer(new CleanerProperties());
     }
 
+    /**
+     * Creates XPath objects by builder.
+     * @return object of XPath class.
+     */
     @Provides
     XPath provideXPath(){
         return XPathFactory.newInstance().newXPath();

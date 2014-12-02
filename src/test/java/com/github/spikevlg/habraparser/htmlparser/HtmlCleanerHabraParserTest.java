@@ -15,16 +15,24 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-
+/**
+ * Class for test HtmlCleanerHabraParser.
+ */
 public class HtmlCleanerHabraParserTest {
     @Inject
     private HtmlCleanerHabraParser htmlParser;
 
+    /**
+     * Injects htmlParser object.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         Guice.createInjector(new ContentProvider()).injectMembers(this);
     }
 
+    /**
+     * Simple html structure of main page.
+     */
     private static final String MAIN_PAGE_WITH_POSTS = "<html><body>"
             + " <div @class=\"posts_list\"><div>"
             + " <div @id=\"post_14\"></div>"
@@ -32,13 +40,22 @@ public class HtmlCleanerHabraParserTest {
             + " <div @id=\"post_784\"></div>"
             + "</div></div></body></html>";
 
+    /**
+     * Success tests getLastPostID method.
+     */
     @Test
     public void getLastPostIdSuccess(){
         assertEquals(1234, htmlParser.getLastPostId(MAIN_PAGE_WITH_POSTS));
     }
 
+    /**
+     * Html structure without posts.
+     */
     private static final String MAIN_PAGE_WITHOUT_POSTS = "<html><body></body></html>";
 
+    /**
+     * Fail tests getLastPostID method.
+     */
     @Test(expected=HabraParserException.class)
     public void getLastPostIdFail() {
         htmlParser.getLastPostId(MAIN_PAGE_WITHOUT_POSTS);
@@ -51,6 +68,9 @@ public class HtmlCleanerHabraParserTest {
     private static final int PAGE_STARS = 23456;
     private static final int PAGE_COMMENTS = 34567;
     private static final int PAGE_SCORE = 45678;
+    /**
+     * Example html structure of post page.
+     */
     private static final String POST_PAGE = "<html><body>"
             + "<h1><span @class=\"post_title\">" + PAGE_TITLE + "</span></h1>" // title
             + "<div @class=\"author\"><a>" + PAGE_AUTHOR + "</a></div>"
@@ -63,6 +83,10 @@ public class HtmlCleanerHabraParserTest {
             + "<ul @class=\"tags\"><li><a>TAG1</a>/<li></ul>"
             + "<ul @class=\"tags\"><li><a>TAG2</a>/<li></ul>"
             + "</body></html>";
+
+    /**
+     * Tests method parsePost.
+     */
     @Test
     public void parsePost(){
         HabraItem habraItem = htmlParser.parsePost(PAGE_ID, POST_PAGE);
