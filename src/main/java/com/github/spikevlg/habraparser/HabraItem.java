@@ -1,23 +1,80 @@
 package com.github.spikevlg.habraparser;
 
-import java.util.List;
+import com.google.common.base.MoreObjects;
 
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Class for represent item of article from habrahabr.
+ */
 public class HabraItem {
+    /**
+     * Post id
+     */
     private int id;
+    /**
+     * Post title
+     */
     private String title;
+    /**
+     * Post author
+     */
     private String author;
+    /**
+     * Count of start for post
+     */
     private int countStars;
+    /**
+     * Count of page views for post
+     */
     private int pageViews;
+    /**
+     * Is translated article
+     */
     private boolean isTranslate;
+    /**
+     * Raiting of post
+     */
     private double score;
+    /**
+     * List of hubs
+     */
     private List<String> listHubs;
+    /**
+     * List of tags
+     */
     private List<String> listTags;
 
     @Override
     public String toString() {
-        return String.format("id=%d title='%s' author='%s' isTranslate=%b pageViews=%d countStars=%d score=%.2f%n"
-                + "listHubs=%s%nlistTags=%s", id, title, author, isTranslate, pageViews, countStars, score, listHubs
-                , listTags);
+        return MoreObjects.toStringHelper(this)
+                .omitNullValues()
+                .add("id", id)
+                .add("title", title)
+                .add("author", author)
+                .add("isTranslate", isTranslate)
+                .add("pageViews", pageViews)
+                .add("countStars", countStars)
+                .add("score", score)
+                .add("\nlistHubs", listHubs)
+                .add("\nlistTags", listTags)
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author.hashCode());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof HabraItem){
+            HabraItem other = (HabraItem)obj;
+            return Objects.equals(id, other.id)
+                    && Objects.equals(title, other.title)
+                    && Objects.equals(author, other.author);
+        } else return false;
     }
 
     public List<String> getListTags() {

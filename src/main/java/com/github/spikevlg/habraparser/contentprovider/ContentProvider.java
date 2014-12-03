@@ -1,8 +1,8 @@
 
 package com.github.spikevlg.habraparser.contentprovider;
 
-import com.github.spikevlg.habraparser.habraparser.HabraParsable;
-import com.github.spikevlg.habraparser.habraparser.HtmlCleanerHabraParser;
+import com.github.spikevlg.habraparser.htmlparser.HtmlHabraParser;
+import com.github.spikevlg.habraparser.htmlparser.HtmlCleanerHabraParser;
 import com.github.spikevlg.habraparser.htmlclient.Grab;
 import com.github.spikevlg.habraparser.htmlclient.HttpClientGrab;
 import com.google.inject.AbstractModule;
@@ -22,15 +22,30 @@ import org.htmlcleaner.DomSerializer;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-
+/**
+ * Class configure guice dependency injection.
+ */
 public class ContentProvider extends AbstractModule {
+    /**
+     * Configure bindings.
+     */
     @Override
     protected void configure() {
-        bind(HabraParsable.class).to(HtmlCleanerHabraParser.class);
+        bind(HtmlHabraParser.class).to(HtmlCleanerHabraParser.class);
         bind(Grab.class).to(HttpClientGrab.class);
         bindListener(Matchers.any(), new Slf4jTypeListener());
     }
 
+    /**
+     * Creates special http client object.
+     * Can be configure with proxy by system property mechanism.
+     * Available next system propeties:
+     * http.proxyHost
+     * http.proxyPost
+     * http.proxyUser
+     * http.proxyPassword
+     * @return object of CloseableHttpClient class.
+     */
     @Provides
     CloseableHttpClient provideCloseableHttpClient(){
         String proxyHost = System.getProperty("http.proxyHost");
@@ -62,11 +77,19 @@ public class ContentProvider extends AbstractModule {
         }
     }
 
+    /**
+     * Creates dom serializer object.
+     * @return object of DomSerializer class.
+     */
     @Provides
     DomSerializer provideDomSerializer(){
         return new DomSerializer(new CleanerProperties());
     }
 
+    /**
+     * Creates XPath objects by builder.
+     * @return object of XPath class.
+     */
     @Provides
     XPath provideXPath(){
         return XPathFactory.newInstance().newXPath();
